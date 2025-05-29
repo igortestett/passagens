@@ -7,6 +7,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const scrapeFlights = async ({ origin, destination, departureDate }) => {
   const browser = await puppeteer.launch({
     headless: true,
+    executablePath: '/usr/bin/chromium-browser',
     defaultViewport: null,
     args: [
       '--no-sandbox',
