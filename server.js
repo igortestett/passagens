@@ -6,12 +6,12 @@ app.use(express.json());
 
 // Endpoint para buscar passagens
 app.post('/search-flights', async (req, res) => {
-  const { client, number, textMessage, origin, destination, departureDate } = req.body;
+  const { origin, destination, departureDate } = req.body;
 
-  // Validação básica dos dados recebidos
-  if (!client || !number || !textMessage || !origin || !destination || !departureDate) {
+  // Validação apenas dos campos essenciais para o scraping
+  if (!origin || !destination || !departureDate) {
     return res.status(400).json({
-      error: 'Os campos client, number, textMessage, origin, destination e departureDate são obrigatórios.',
+      error: 'Os campos origin, destination e departureDate são obrigatórios.',
     });
   }
 
@@ -24,9 +24,6 @@ app.post('/search-flights', async (req, res) => {
 
     // Retornar o texto diretamente no campo "results"
     return res.json({
-      client,
-      number,
-      textMessage,
       results: result.result, // Acessa diretamente o texto do retorno
     });
   } catch (error) {
